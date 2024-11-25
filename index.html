@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Login</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <main class="glass-card">
+        <div class="logo">
+            <img src="https://one.halowifi.com/brand_settings/logo/logo_1707775084.png" alt="logo" class="logo-img">
+        </div>
+        <h1>Welcome Back</h1>
+        
+        <div class="terms-container">
+            <div class="checkbox-wrapper">
+                <input type="checkbox" id="terms">
+                <label for="terms">
+                    I agree to the <a href="#" id="tosModalTitle">Terms of Service</a> and 
+                    <a href="#" id="privacyModalTitle">Privacy Policy</a>
+                </label>
+            </div>
+            
+            <div id="loginRequestMalformed" class="hidden">
+                <p>Login request is malformed. Please check our <a href="https://one.halowifi.com/developers/api-documentation" target="_blank">documentation</a>, 
+                    <a href="https://one.halowifi.com/user/support" target="_blank">raise a ticket</a> with us, or 
+                    <a href="mailto:hello@halowifi.com">email our support team</a>.</p>
+            </div>
+        </div>
+
+
+        <button id="loginBtn" disabled>Continue to Login</button>
+    </main>
+
+    <!-- Terms of Service Modal -->
+    <div id="tosModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Terms of Service</h2>
+                <button class="close-button" onclick="closeModal('tos')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <br>
+                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Privacy Policy Modal -->
+    <div id="privacyModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" >Privacy Policy</h2>
+                <button class="close-button" onclick="closeModal('privacy')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Your privacy is important to us. It is our policy to respect your privacy regarding any information we may collect from you across our website.</p>
+                <br>
+                <p>We only ask for personal information when we truly need it to provide a service to you. We collect it by fair and lawful means, with your knowledge and consent.</p>
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/jquery-3.5.0.min.js"></script>
+    <script src="assets/js/main.js?v=5"></script>
+</body>
+</html>
