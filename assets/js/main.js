@@ -50,3 +50,36 @@ $(document).ready(function() {
         $('#loginRequestMalformed').removeClass('hidden');
     }
 });
+
+$("#loginBtn").on('click', function() {
+    console.log('loginBtn clicked');
+    // collect location_id, user_id and session_id from url and send it to the guest login app's 
+    // api where this data will be processed and then send to halowifi api to enable access and 
+    // trigger wifi login. HaloWiFi api will respond with a redirection url to which you should redirect 
+    // the user to.
+    var url = window.location.href;
+    var params = url.split('?')[1];
+    var params = new URLSearchParams(params);
+    var location_id = params.get('location_id');
+    var user_id = params.get('user_id');
+    var session_id = params.get('session_id');
+
+    var login_data = {
+        location_id: location_id,
+        user_id: user_id,
+        session_id: session_id
+    };
+
+    var guest_login_api_url = 'https://api.example.com/api/guest-login';
+
+    $.ajax({
+        url: guest_login_api_url,
+        method: 'POST',
+        data: login_data,
+        success: function(response) {
+            console.log(response);
+            // redirect the user to the url provided in the response
+            window.location.href = response.redirect_url;
+        }
+    });
+});
