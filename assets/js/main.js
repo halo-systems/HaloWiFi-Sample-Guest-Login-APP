@@ -40,14 +40,15 @@ $(document).ready(function() {
     var params = url.split('?')[1];
     var params = new URLSearchParams(params);
     console.log(params);
-    if(!(params.has('location_id') && params.has('user_id') && params.has('session_id'))) {
-        console.log('location_id, user_id, or session_id are not defined');
+    if(!(params.has('location_id') && params.has('mac') && params.has('network_id') && params.has('session_id'))) {
+        console.log('location_id, mac, network_id, or session_id are not defined');
         // hide the loginBtn, welcome back text and checkbox
         $('#loginBtn').hide();
         // hide the checkbox
         $(".checkbox-wrapper").addClass('hidden');
         // show  this text 
         $('#loginRequestMalformed').removeClass('hidden');
+        document.getElementById('login-url').innerHTML = url;
     }
 });
 
@@ -61,16 +62,18 @@ $("#loginBtn").on('click', function() {
     var params = url.split('?')[1];
     var params = new URLSearchParams(params);
     var location_id = params.get('location_id');
-    var user_id = params.get('user_id');
+    // var user_id = params.get('user_id');
     var session_id = params.get('session_id');
+    var login_app_id = params.get('login_app_id');
 
     var login_data = {
         location_id: location_id,
-        user_id: user_id,
-        session_id: session_id
+        network_id: params.get('network_id'),
+        session_id: session_id,
+        login_app_id: login_app_id
     };
 
-    var guest_login_api_url = 'https://api.example.com/api/guest-login';
+    var guest_login_api_url = 'https://one.halowifi.com/api/trigger-login';
 
     $.ajax({
         url: guest_login_api_url,
@@ -78,8 +81,12 @@ $("#loginBtn").on('click', function() {
         data: login_data,
         success: function(response) {
             console.log(response);
+            // alert("Login url:: "+response.login_url);
             // redirect the user to the url provided in the response
-            window.location.href = response.redirect_url;
+            window.location.href = response.login_url;
+        },
+        error: function(error) {
+            alert("Error in triggering login:: "+error);
         }
     });
 });
