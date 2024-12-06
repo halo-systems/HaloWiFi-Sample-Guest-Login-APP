@@ -178,3 +178,22 @@ button:not(:disabled):active {
 .hidden {
     display: none;
 }
+
+.powered-by {
+    position: fixed;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.powered-by a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.powered-by a:hover {
+    text-decoration: underline;
+}

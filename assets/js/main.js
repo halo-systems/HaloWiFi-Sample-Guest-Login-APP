@@ -40,8 +40,8 @@ $(document).ready(function() {
     var params = url.split('?')[1];
     var params = new URLSearchParams(params);
     console.log(params);
-    if(!(params.has('location_id') && params.has('mac') && params.has('network_id') && params.has('session_id'))) {
-        console.log('location_id, mac, network_id, or session_id are not defined');
+    if(!(params.has('location_id') && params.has('network_id') && params.has('session_id'))) {
+        console.log('location_id, network_id, or session_id are not defined');
         // hide the loginBtn, welcome back text and checkbox
         $('#loginBtn').hide();
         // hide the checkbox
@@ -51,6 +51,7 @@ $(document).ready(function() {
         document.getElementById('login-url').innerHTML = url;
     }
 });
+
 
 $("#loginBtn").on('click', function() {
     console.log('loginBtn clicked');
@@ -73,7 +74,7 @@ $("#loginBtn").on('click', function() {
         login_app_id: login_app_id
     };
 
-    var guest_login_api_url = 'https://one.halowifi.com/api/trigger-login';
+    var guest_login_api_url = APP_API+'/trigger-login';
 
     $.ajax({
         url: guest_login_api_url,
