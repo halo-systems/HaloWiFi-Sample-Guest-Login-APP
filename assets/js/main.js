@@ -71,7 +71,9 @@ $("#loginBtn").on('click', function() {
         location_id: location_id,
         network_id: params.get('network_id'),
         session_id: session_id,
-        login_app_id: login_app_id
+        login_app_id: login_app_id,
+        bandwidth: USER_BANDWIDTH_LIMIT,
+        session_timeout: USER_SESSION_TIMEOUT
     };
 
     var guest_login_api_url = APP_API+'/trigger-login';
