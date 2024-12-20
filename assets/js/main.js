@@ -86,7 +86,7 @@ $("#loginBtn").on('click', function() {
     // API endpoint for guest login processing
     // IMPORTANT: APP_API should be defined as your base API URL
     $.ajax({
-        url: APP_API+'/trigger-login',
+        url: YOUR_APP_API_DOMAIN+'/your-api-endpoint-for-guest-login',
         method: 'POST',
         data: login_data,
         success: function(response) {
