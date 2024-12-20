@@ -66,6 +66,8 @@ $("#loginBtn").on('click', function() {
     // var user_id = params.get('user_id');
     var session_id = params.get('session_id');
     var login_app_id = params.get('login_app_id');
+    var first_name = $('#firstName').val();
+    var last_name = $('#lastName').val();
 
     var login_data = {
         location_id: location_id,
@@ -73,7 +75,9 @@ $("#loginBtn").on('click', function() {
         session_id: session_id,
         login_app_id: login_app_id,
         bandwidth: USER_BANDWIDTH_LIMIT,
-        session_timeout: USER_SESSION_TIMEOUT
+        session_timeout: USER_SESSION_TIMEOUT,
+        first_name: first_name,
+        last_name: last_name
     };
 
     var guest_login_api_url = APP_API+'/trigger-login';

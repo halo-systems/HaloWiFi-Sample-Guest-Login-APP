@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HaloWiFi App Login</title>
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/style.css?v=1">
 </head>
 <body>
     <main class="glass-card">
@@ -12,9 +12,22 @@
             <img src="https://one.halowifi.com/brand_settings/logo/logo_1707775084.png" alt="logo" class="logo-img">
         </div>
         <h1>Welcome</h1>
-        <p id="login-url"></p>
+        
+        <!-- Add name input fields -->
+        <div class="input-container">
+            <div class="input-group">
+                <input type="text" id="firstName" placeholder="First Name" required>
+            </div>
+            <div class="input-group">
+                <input type="text" id="lastName" placeholder="Last Name" required>
+            </div>
+            <div class="input-group">
+                <input type="email" id="email" placeholder="Email Address" required>
+            </div>
+        </div>
         
         <div class="terms-container">
+            
             <div class="checkbox-wrapper">
                 <input type="checkbox" id="terms">
                 <label for="terms">
@@ -65,6 +78,6 @@
     </footer> -->
     <script src="assets/js/jquery-3.5.0.min.js"></script>
     <script src="assets/js/config.js"></script>
-    <script src="assets/js/main.js?v=12"></script>
+    <script src="assets/js/main.js?v=13"></script>
 </body>
 </html>
