@@ -30,66 +30,67 @@ function closeModal(type) {
 }
 
 $(document).ready(function() {
-    // on button click
-    $('#loginBtn').on('click', function() {
-        console.log('loginBtn clicked');
-    }); 
-
-    // verify if the $_GET has location_id, user_id and session_id
+    // Validate URL Parameters
     var url = window.location.href;
-    var params = url.split('?')[1];
-    var params = new URLSearchParams(params);
-    console.log(params);
+    var params = new URLSearchParams(url.split('?')[1]);
+    
+    // IMPORTANT: Required URL parameters for HaloWiFi integration
+    // - location_id: Identifies the specific location/venue
+    // - network_id: Identifies the network within the location
+    // - session_id: Unique identifier for this login session
     if(!(params.has('location_id') && params.has('network_id') && params.has('session_id'))) {
-        console.log('location_id, network_id, or session_id are not defined');
-        // hide the loginBtn, welcome back text and checkbox
+        // Handle malformed URLs by hiding login form and showing error
         $('#loginBtn').hide();
-        // hide the checkbox
         $(".checkbox-wrapper").addClass('hidden');
-        // show  this text 
         $('#loginRequestMalformed').removeClass('hidden');
         document.getElementById('login-url').innerHTML = url;
     }
 });
 
-
 $("#loginBtn").on('click', function() {
-    console.log('loginBtn clicked');
-    // collect location_id, user_id and session_id from url and send it to the guest login app's 
-    // api where this data will be processed and then send to halowifi api to enable access and 
-    // trigger wifi login. HaloWiFi api will respond with a redirection url to which you should redirect 
-    // the user to.
-    var url = window.location.href;
-    var params = url.split('?')[1];
-    var params = new URLSearchParams(params);
-    var location_id = params.get('location_id');
-    // var user_id = params.get('user_id');
-    var session_id = params.get('session_id');
-    var login_app_id = params.get('login_app_id');
-    var first_name = $('#firstName').val();
-    var last_name = $('#lastName').val();
-
+    // Extract URL parameters needed for HaloWiFi API
+    var params = new URLSearchParams(window.location.href.split('?')[1]);
+    
+    // IMPLEMENTATION NOTE:
+    // The following fields are collected from the login form
+    // Additional fields can be added as needed:
+    // - middle_name
+    // - phone
+    // - address
+    // - city
+    // - postal_code
     var login_data = {
-        location_id: location_id,
+        // Required HaloWiFi parameters from URL
+        location_id: params.get('location_id'),
         network_id: params.get('network_id'),
-        session_id: session_id,
-        login_app_id: login_app_id,
-        bandwidth: USER_BANDWIDTH_LIMIT,
-        session_timeout: USER_SESSION_TIMEOUT,
-        first_name: first_name,
-        last_name: last_name
+        session_id: params.get('session_id'),
+        login_app_id: params.get('login_app_id'),
+        
+        // WiFi access control parameters
+        bandwidth: USER_BANDWIDTH_LIMIT,     // Define this constant based on your requirements
+        session_timeout: USER_SESSION_TIMEOUT, // Define this constant based on your requirements
+        
+        // User information from form
+        first_name: $('#firstName').val(),
+        last_name: $('#lastName').val(),
+        email: $('#email').val()
+        
+        // Additional fields can be added here:
+        // middle_name: $('#middleName').val(),
+        // phone: $('#phone').val(),
+        // address: $('#address').val(),
+        // city: $('#city').val(),
+        // postal_code: $('#postalCode').val()
     };
 
-    var guest_login_api_url = APP_API+'/trigger-login';
-
+    // API endpoint for guest login processing
+    // IMPORTANT: APP_API should be defined as your base API URL
     $.ajax({
-        url: guest_login_api_url,
+        url: APP_API+'/trigger-login',
         method: 'POST',
         data: login_data,
         success: function(response) {
-            console.log(response);
-            // alert("Login url:: "+response.login_url);
-            // redirect the user to the url provided in the response
+            // Response should contain login_url for WiFi authentication
             window.location.href = response.login_url;
         },
         error: function(error) {
