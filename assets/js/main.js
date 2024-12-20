@@ -83,18 +83,24 @@ $("#loginBtn").on('click', function() {
         // postal_code: $('#postalCode').val()
     };
 
-    // API endpoint for guest login processing
-    // IMPORTANT: APP_API should be defined as your base API URL
-    $.ajax({
-        url: YOUR_APP_API_DOMAIN+'/your-api-endpoint-for-guest-login',
-        method: 'POST',
-        data: login_data,
-        success: function(response) {
-            // Response should contain login_url for WiFi authentication
-            window.location.href = response.login_url;
-        },
-        error: function(error) {
-            alert("Error in triggering login:: "+error);
-        }
-    });
+    // if YOUR_APP_API_DOMAIN is https://yourapidomain.com then show a message on #page_message that "Please set your API domain in config.js"
+    if(YOUR_APP_API_DOMAIN === 'https://yourapidomain.com' || API_ENDPOINT === '/your-api-endpoint-for-guest-login') {
+        $('#page_message').text("Please set your API domain and endpoint in config.js");
+    }else{
+    var api_endpoint = YOUR_APP_API_DOMAIN+API_ENDPOINT;
+        // API endpoint for guest login processing
+        // IMPORTANT: APP_API should be defined as your base API URL
+        $.ajax({
+            url: api_endpoint,
+            method: 'POST',
+            data: login_data,
+            success: function(response) {
+                // Response should contain login_url for WiFi authentication
+                window.location.href = response.login_url;
+            },
+            error: function(error) {
+                alert("Error in triggering login:: "+error);
+            }
+        });
+    }
 });
